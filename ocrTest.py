@@ -5,9 +5,11 @@ import datefinder
 pytesseract.pytesseract.tesseract_cmd= r'C:\Program Files\Tesseract-OCR\tesseract'
 
 
-image = cv2.imread('img.jpg')
-
+imagen = cv2.imread('img.jpg')
+images= cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
+image=cv2.threshold(images, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 text = pytesseract.image_to_string(image,lang='spa')
+#text = pytesseract.image_to_string(image,lang='spa')
 
 
 def month_string_to_number(SS):
@@ -53,8 +55,7 @@ def devolverFecha(cadena):
         return date
     else:
         return 0
-y= text.find('ECHA DE NA') 
-cadena=text[y:(y+30)]
+cadena=text
 #print('cadena',cadena)
 #print('fin cadena')
 
@@ -69,6 +70,8 @@ else:
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+
 
 
 
